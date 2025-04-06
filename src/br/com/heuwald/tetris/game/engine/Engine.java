@@ -136,7 +136,7 @@ public class Engine implements Runnable {
 					for (EngineListener enl : engineListener) {
 						enl.gameOver();
 					}
-					wait(100);
+					wait(10);
 					continue;
 				}
 				if (pauseGame) {

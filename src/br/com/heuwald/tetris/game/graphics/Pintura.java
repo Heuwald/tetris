@@ -21,7 +21,7 @@ public class Pintura {
 	Engine en;
 	ImageObserver io;
 	Image fundo;
-	int sizeX = 400, sizeY = 700, blockSize, xBloco, yBloco;
+	int sizeX = 400, sizeY = 700, blockSize;
 
 	public Pintura(Engine en, ImageObserver io) {
 
@@ -45,11 +45,8 @@ public class Pintura {
 		for (int i = 0; i < gradeLargura; i++) {
 			for (int j = 0; j < gradeAltura; j++) {
 
-				xBloco = (i * blockSize + 11);
-				yBloco = (j * blockSize + 11);
-
 				gd.setColor(Color.GRAY);
-				gd.drawImage(blocos.VAZIO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
+				gd.drawImage(blocos.VAZIO, (i * blockSize + 11), (j * blockSize + 11), blockSize - 1, blockSize - 1, io);
 				//		gd.drawRect(xBloco + 1, yBloco + 1, blockSize - 2, blockSize - 2);
 				//		gd.drawRect(xBloco + 3, yBloco + 3, blockSize - 6, blockSize - 6);
 				//		gd.drawRect(xBloco + 2, yBloco + 2, blockSize - 5, blockSize - 5);
@@ -101,11 +98,11 @@ public class Pintura {
 			for (int j = 0; j < gradeAltura; j++) {
 				Block bloco = en.grade.getBlock(i, j);
 				//
-				xBloco = (i * blockSize + 11);
-				yBloco = (j * blockSize + 11);
+				bloco.setX(i * blockSize + 11);
+				bloco.setY(j * blockSize + 11);
 
 
-				g.drawImage(blocos.PRETO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
+				g.drawImage(blocos.PRETO, bloco.getX(), bloco.getY(), blockSize - 1, blockSize - 1, io);
 
 			}
 		}
@@ -121,59 +118,26 @@ public class Pintura {
 		for (int i = 0; i < gradeLargura; i++) {
 			for (int j = 0; j < gradeAltura; j++) {
 				Block bloco = en.grade.getBlock(i, j);
-				//
-				xBloco = (i * blockSize + 11);
-				yBloco = (j * blockSize + 11);
+				
+				bloco.setX(i * blockSize + 11);
+				bloco.setY(j * blockSize + 11);
 
 				if (bloco != null && bloco.isExiste()) {
-
-					if (bloco.getCor().getRGB() == Color.RED.getRGB()) {
-						//			gd.drawImage(blocos.VERMELHO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.RED);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.BLUE.getRGB()) {
-						//			gd.drawImage(blocos.AZUL, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.BLUE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.GREEN.getRGB()) {
-						//gd.drawImage(blocos.VERDE, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.GREEN);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.YELLOW.getRGB()) {
-						//			gd.drawImage(blocos.AMARELO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.YELLOW);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.ORANGE.getRGB()) {
-						//			gd.drawImage(blocos.LARANJA, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.ORANGE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.PINK.getRGB()) {
-						//			gd.drawImage(blocos.ROSA, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.PINK);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.BLACK.getRGB()) {
-						//			gd.drawImage(blocos.PRETO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.BLACK);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.WHITE.getRGB()) {
-						//			gd.drawImage(blocos.BRANCO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.WHITE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else {
-						//			gd.drawImage(blocos.AZUL, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.BLUE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					}
+					pintaBloco(bloco, gd);
 				}
 			}
 		}
 
 	}
 
+	private void pintaBloco(Block bloco, Graphics2D gd) {
+			gd.drawImage(blocos.getImageByColor(bloco.getCor()), bloco.getX(), bloco.getY(), blockSize - 1, blockSize - 1, io);
+	}
+	
 	public void pintaProxPeca(Graphics g) {
 		Graphics2D gd = (Graphics2D) g;
 
-		int x = 230, y = 10, xBloco, yBloco;
+		int x = 230, y = 10;
 
 		gd.setColor(Color.GRAY);
 		gd.drawImage(blocos.VAZIO, x, y, 4 * blockSize, 4 * blockSize, io);
@@ -189,46 +153,10 @@ public class Pintura {
 					int xf = (4 * blockSize) / 2 - (en.getProxPeca().getHeight() * blockSize) / 2;
 					int yf = (4 * blockSize) / 2 - (en.getProxPeca().getWidth() * blockSize) / 2;
 					;
-					xBloco = (i * blockSize + 1) + x + xf;
-					yBloco = (j * blockSize + 1) + y + yf;
-
-					if (bloco.getCor().getRGB() == Color.RED.getRGB()) {
-						//			gd.drawImage(blocos.VERMELHO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.RED);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.BLUE.getRGB()) {
-						//			gd.drawImage(blocos.AZUL, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.BLUE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.GREEN.getRGB()) {
-						//			gd.drawImage(blocos.VERDE, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.GREEN);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.YELLOW.getRGB()) {
-						//gd.drawImage(blocos.AMARELO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.YELLOW);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.ORANGE.getRGB()) {
-						//			gd.drawImage(blocos.LARANJA, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.ORANGE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.PINK.getRGB()) {
-						//			gd.drawImage(blocos.ROSA, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.PINK);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.BLACK.getRGB()) {
-						//			gd.drawImage(blocos.PRETO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.BLACK);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else if (bloco.getCor().getRGB() == Color.WHITE.getRGB()) {
-						//gd.drawImage(blocos.BRANCO, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.WHITE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					} else {
-						//gd.drawImage(blocos.AZUL, xBloco, yBloco, blockSize - 1, blockSize - 1, io);
-						gd.setColor(Color.BLUE);
-						gd.fillRect(xBloco, yBloco, blockSize - 1, blockSize - 1);
-					}
+					bloco.setX((i * blockSize + 1) + x + xf);
+					bloco.setY((j * blockSize + 1) + y + yf);
+					
+					pintaBloco(bloco, gd);
 				}
 			}
 		}
@@ -247,7 +175,7 @@ public class Pintura {
 		gd.drawString("Lines: " + en.getLinhas(), 230, 140);
 	}
 
-	public void pintaFim(){
+	public boolean pintaFim(){
 		Block b = new Block();
 		b.setIdTetromino(1000000);
 		b.setCor(Color.BLACK);
@@ -256,9 +184,10 @@ public class Pintura {
 			for (int j = 0; j < en.grade.getWidth(); j++) {
 				if(en.grade.getBlock(j, i) == null || en.grade.getBlock(j, i).getIdTetromino() != 1000000){
 					en.grade.setBlock(b, j, i);
-					return;
+					return true;
 				}    
 			}    
 		}
+		return false;
 	}
 }

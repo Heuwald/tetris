@@ -1,6 +1,9 @@
 package br.com.heuwald.tetris.game.engine;
 import java.awt.Color;
 
+import lombok.Data;
+
+@Data
 public class Tetromino {
 
 	private Block tetromino[][];
@@ -151,45 +154,5 @@ public class Tetromino {
 			}
 		}
 		return block;
-	}
-
-	public void setLocationX(int locationX) {
-		this.locationX = locationX;
-	}
-
-	public int getLocationX() {
-		return locationX;
-	}
-
-	public void setLocationY(int locationY) {
-		this.locationY = locationY;
-	}
-
-	public int getLocationY() {
-		return locationY;
-	}
-
-	public int getIdTetromino() {
-		return idTetromino;
-	}
-
-	public void setIdTetromino(int idTetromino) {
-		this.idTetromino = idTetromino;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
-	public int getHeight() {
-		return height;
 	}
 }

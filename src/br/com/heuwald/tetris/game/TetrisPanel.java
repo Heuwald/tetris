@@ -104,8 +104,9 @@ public class TetrisPanel extends JPanel implements EngineListener {
 
 	@Override
 	public void gameOver() {
-		p.pintaFim();
-		atualiza = true;
-		repaint();
+		if(p.pintaFim()) {
+			atualiza = true;
+			repaint();
+		}
 	}
 }

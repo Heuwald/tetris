@@ -1,0 +1,15 @@
+br\com\heuwald\tetris\game\app\applet\Applet.class
+br\com\heuwald\tetris\game\engine\Engine.class
+br\com\heuwald\tetris\game\engine\Tetromino.class
+br\com\heuwald\tetris\game\app\App$1.class
+br\com\heuwald\tetris\game\TetrisPanel.class
+br\com\heuwald\tetris\game\graphics\Pintura.class
+br\com\heuwald\tetris\game\TetrisPanel$1.class
+br\com\heuwald\tetris\game\engine\Block.class
+br\com\heuwald\tetris\sound\EnmMusicas.class
+br\com\heuwald\tetris\sound\PlayMidi.class
+br\com\heuwald\tetris\game\engine\Grid.class
+br\com\heuwald\tetris\game\engine\EngineListener.class
+br\com\heuwald\tetris\sound\PlayMidi$1.class
+br\com\heuwald\tetris\game\graphics\Blocos.class
+br\com\heuwald\tetris\game\app\App.class

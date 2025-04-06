@@ -1,7 +1,13 @@
 package br.com.heuwald.tetris.game.engine;
 
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.Setter;
+
+@Data
 public class Grid {
 
+	@Setter(value = AccessLevel.NONE)
 	private Block grid[][];
 
 	private int width, height;
@@ -75,25 +81,5 @@ public class Grid {
 
 	public Block setBlock(Block b, int x, int y) {
 		return grid[x][y] = b;
-	}
-
-	public void setWidth(int l) {
-		this.width = l;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setHeight(int a) {
-		this.height = a;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public Block[][] getGrid() {
-		return grid;
 	}
 }
