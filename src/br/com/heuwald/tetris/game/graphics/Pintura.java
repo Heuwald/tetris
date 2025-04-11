@@ -96,13 +96,7 @@ public class Pintura {
 
 		for (int i = 0; i < gradeLargura; i++) {
 			for (int j = 0; j < gradeAltura; j++) {
-				Block bloco = en.grade.getBlock(i, j);
-				//
-				bloco.setX(i * blockSize + 11);
-				bloco.setY(j * blockSize + 11);
-
-
-				g.drawImage(blocos.PRETO, bloco.getX(), bloco.getY(), blockSize - 1, blockSize - 1, io);
+				g.drawImage(blocos.PRETO, (i * blockSize + 11), (j * blockSize + 11), blockSize - 1, blockSize - 1, io);
 
 			}
 		}
@@ -119,10 +113,11 @@ public class Pintura {
 			for (int j = 0; j < gradeAltura; j++) {
 				Block bloco = en.grade.getBlock(i, j);
 				
-				bloco.setX(i * blockSize + 11);
-				bloco.setY(j * blockSize + 11);
-
 				if (bloco != null && bloco.isExiste()) {
+					
+					bloco.setX(i * blockSize + 11);
+					bloco.setY(j * blockSize + 11);
+					
 					pintaBloco(bloco, gd);
 				}
 			}
